@@ -3,6 +3,8 @@ package com.example.steve.wahdo2;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -48,6 +50,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.mTextViewCreator.setText(creatorName);
         holder.mTextViewLikes.setText("Like: " + likeCount);
         Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
+        holder.URL = mExampleList.get(position).getImageUrl();
+
     }
 
     @Override
@@ -59,42 +63,42 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         public ImageView mImageView;
         public TextView mTextViewCreator;
         public TextView mTextViewLikes;
-
+        String URL;
 
 
         //mImageView.OnTouchListener
 
         @SuppressLint("ClickableViewAccessibility")
-        public ExampleViewHolder(View itemView) {
+        public ExampleViewHolder(final View itemView) {
+
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view);
 
+         //   System.out.println("The img view ID is: " + itemView.findViewById(R.id.image_view).getId());
             mTextViewCreator = itemView.findViewById(R.id.text_view_creator);
             mTextViewLikes = itemView.findViewById(R.id.text_view_likes);
 
             mImageView.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "clicked on " + mTextViewCreator + " ", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(mContext, "clicked on " + mTextViewCreator + " ", Toast.LENGTH_LONG).show();
+
+                    System.out.println("The img view URL is: " + URL);
+
                     Intent i = new Intent(mContext, SecondActivity.class);
+                    Bundle b = new Bundle();
+                    String creatorText = mTextViewCreator.getText().toString();
+                    String viewLikes = mTextViewLikes.getText().toString();
+                    b.putString("creatorText", creatorText);
+                    b.putString("viewLikes", viewLikes);
+                    b.putString("URL",  URL);
+                    i.putExtras(b);
                     mContext.startActivity(i);
+
 
                 }
             });
-
-
-            /*
-            mImageView.setonClickListener(new View.OnClickListener() {
-                @Override
-                public boolean onClick(View view, MotionEvent motionEvent) {
-                    Toast.makeText(mContext, "clicked on " + mTextViewCreator + " ", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(mContext, SecondActivity.class);
-                    mContext.startActivity(i);
-                    return true;
-
-                }
-            });
-            */
 
         }
     }

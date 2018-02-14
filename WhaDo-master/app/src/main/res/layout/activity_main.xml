@@ -13,8 +13,11 @@
         android:background="@android:color/darker_gray" />
 
     <Button
+        android:id="@+id/randomize"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:onClick="randomClick"
+        android:text="Random" />
 
 </RelativeLayout>
