@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Random;
 
+/** main does main stuff*/
 public class MainActivity extends AppCompatActivity {
     // the viwer that makes all the stuff pretty
     private RecyclerView mRecyclerView;
